@@ -19,6 +19,6 @@ struct ContentView: View {
     }
 }
 
-#Preview {wwkjasd
+#Preview {
     ContentView()
 }
