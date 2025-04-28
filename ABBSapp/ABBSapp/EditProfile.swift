@@ -18,13 +18,18 @@ struct EditProfile: View {
     @State private var showPhotoSourceDialog = false
     @State private var useCamera = false
 
-    let filterGrades = ["Freshman", "Sophomore", "Junior", "Senior"]
-    let filterClassTypes = ["CS", "EE", "DS", "Math", "Arts", "Chem", "Physics", "Business", "Other"]
+    let filterGrades = [
+        "Freshman", "Sophomore", "Junior", "Senior",
+    ]
+    let filterClassTypes = [
+        "CS", "EE", "DS", "Math", "Arts", "Chem", "Physics", "Business", "Other"
+    ]
     let filterEthnicities = [
         "American Indian/Alaska Native", "Hispanic or Latino", "White",
-        "Native Hawaiian/Other Pacific Islander", "Black or African American", "Asian"
+        "Native Hawaiian/Other Pacific Islander", "Black or African American", "Asian"        ]
+    let filterGenders = [
+        "Male", "Female", "Other",
     ]
-    let filterGenders = ["Male", "Female", "Other"]
 
     init(profile: Binding<UserProfile>) {
         self._profile = profile
@@ -86,7 +91,9 @@ struct EditProfile: View {
                     VStack(spacing: 14) {
                         CustomTextField(title: "Introduction", content: $localProfile.introduction, isMultiline: true)
 
-                        MultiSelectDropdown(title: "Preferred Meeting Times", options: ["Morning", "Afternoon", "Evening"], selection: $localProfile.preferredMeetingTimes)
+                        MultiSelectDropdown(title: "Preferred Meeting Times", options: [
+                            "Morning", "Afternoon", "Evening"
+                        ], selection: $localProfile.preferredMeetingTimes)
                         MultiSelectDropdown(title: "Grade", options: filterGrades, selection: $localProfile.grade)
                         MultiSelectDropdown(title: "Type of Classes", options: filterClassTypes, selection: $localProfile.typeOfClasses)
 
@@ -239,4 +246,3 @@ struct ImagePicker: UIViewControllerRepresentable {
         }
     }
 }
-

@@ -9,14 +9,14 @@ import SwiftUI
 
 struct RandomProfileView: View {
     @State private var currentProfile: UserProfile = UserProfile.randomProfile()
+    @Binding var likedProfiles: [UserProfile]
     @State private var isFilterPresented = false
     @State private var isProfilePresented = false
-
+    @State private var isLikedProfilesPresented = false
 
     var body: some View {
         VStack(spacing: 16) {
-
-            // Top Bar: ABBS Logo + Filter Button
+            // Top Bar: ABBS Logo + Filter + Liked Profiles Button
             HStack {
                 Image("ABBSLogo")
                     .resizable()
@@ -29,14 +29,13 @@ struct RandomProfileView: View {
                     Text("Filter")
                         .foregroundColor(.black)
                         .font(.headline)
-                        .padding(.trailing, 24)
                 }
+                .padding(.trailing, 16)
             }
             .padding(.top, -40)
             Spacer()
 
-
-            // Profile Card with BOX
+            // Profile Card
             ScrollView {
                 VStack(spacing: 12) {
                     VStack(spacing: 12) {
@@ -52,41 +51,14 @@ struct RandomProfileView: View {
                         
                         VStack(alignment: .leading, spacing: 20) {
                             Group {
-                                VStack(alignment: .leading, spacing: 6) {
-                                    Text("**Introduction:**")
-                                    Text(currentProfile.introduction)
-                                        .fixedSize(horizontal: false, vertical: true)
-                                }
-                                
-                                VStack(alignment: .leading, spacing: 6) {
-                                    Text("**Preferred Meeting Times:**")
-                                    Text(currentProfile.preferredMeetingTimes.joined(separator: ", "))
-                                        .fixedSize(horizontal: false, vertical: true)
-                                }
-                                
-                                VStack(alignment: .leading, spacing: 6) {
-                                    Text("**Grade:**")
-                                    Text(currentProfile.grade.joined(separator: ", "))
-                                        .fixedSize(horizontal: false, vertical: true)
-                                }
-                                
-                                VStack(alignment: .leading, spacing: 6) {
-                                    Text("**Type of Classes:**")
-                                    Text(currentProfile.typeOfClasses.joined(separator: ", "))
-                                        .fixedSize(horizontal: false, vertical: true)
-                                }
-                                
-                                VStack(alignment: .leading, spacing: 6) {
-                                    Text("**Race/Ethnicity:**")
-                                    Text(currentProfile.raceEthnicity.joined(separator: ", "))
-                                        .fixedSize(horizontal: false, vertical: true)
-                                }
-                                
-                                VStack(alignment: .leading, spacing: 6) {
-                                    Text("**Gender:**")
-                                    Text(currentProfile.gender.joined(separator: ", "))
-                                        .fixedSize(horizontal: false, vertical: true)
-                                }
+                                profileInfo(label: "Introduction", content: currentProfile.introduction)
+                                profileInfo(label: "Preferred Meeting Times", content: currentProfile.preferredMeetingTimes.joined(separator: ", "))
+                                profileInfo(label: "Grade", content: currentProfile.grade.joined(separator: ", "))
+                                profileInfo(label: "Type of Classes", content: currentProfile.typeOfClasses.joined(separator: ", "))
+                                profileInfo(label: "Race/Ethnicity", content: currentProfile.raceEthnicity.joined(separator: ", "))
+                                profileInfo(label: "Gender", content: currentProfile.gender.joined(separator: ", "))
+                                profileInfo(label: "Instagram", content: currentProfile.instagram)
+                                profileInfo(label: "LinkedIn", content: currentProfile.linkedin, link: true)
                             }
                         }
                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -99,7 +71,6 @@ struct RandomProfileView: View {
                     .padding(.horizontal, 24)
                 }
             }
-
 
             // Like and Dislike Buttons
             HStack {
@@ -119,6 +90,7 @@ struct RandomProfileView: View {
                 Spacer()
 
                 Button(action: {
+                    likedProfiles.append(currentProfile)
                     currentProfile = UserProfile.randomProfile()
                 }) {
                     Image(systemName: "heart.fill")
@@ -134,44 +106,33 @@ struct RandomProfileView: View {
             .padding(.horizontal, 40)
             .padding(.bottom, 8)
 
-            // Bottom Tab Bar (same as you posted)
-            HStack {
-                Spacer()
-                ZStack {
-                    RoundedRectangle(cornerRadius: 10)
-                        .fill(Color.gray.opacity(0.3))
-                        .frame(width: 60, height: 60)
-                    Image("SearchLogo")
-                        .resizable()
-                        .frame(width: 60, height: 60)
-                }
-                Spacer()
-                Image("LikesLogo")
-                    .resizable()
-                    .frame(width: 90, height: 60)
-                Spacer()
-                Button(action: {
-                    // Navigate to Profile Page
-                    isProfilePresented = true
-                }) {
-                    Image("ProfileLogo")
-                        .resizable()
-                        .frame(width: 43, height: 43)
-                }
-                Spacer()
-            }
-            .padding(.horizontal, -20)
-            .padding(.bottom, -20)
+            // Bottom Tab Bar
         }
         .fullScreenCover(isPresented: $isFilterPresented) {
             FilterPageView()
         }
         .fullScreenCover(isPresented: $isProfilePresented) {
-            ProfileView()
+            ProfileView(profile: .constant(UserProfile.randomProfile()), onEditProfile: {})
+        }
+        .fullScreenCover(isPresented: $isLikedProfilesPresented) {
+            ListofMatches(likedProfiles: $likedProfiles)
+        }
+    }
+
+    @ViewBuilder
+    private func profileInfo(label: String, content: String, link: Bool = false) -> some View {
+        VStack(alignment: .leading, spacing: 6) {
+            Text("**\(label):**")
+            if link {
+                Text(content)
+                    .foregroundColor(.blue)
+                    .underline()
+                    .fixedSize(horizontal: false, vertical: true)
+            } else {
+                Text(content)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
         }
     }
 }
 
-#Preview {
-    RandomProfileView()
-}
