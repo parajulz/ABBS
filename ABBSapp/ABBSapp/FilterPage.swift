@@ -50,6 +50,8 @@ struct FilterPageView: View {
         FilterOption(label: "Female"),
         FilterOption(label: "Other")
     ]
+    
+
 
     var body: some View {
         NavigationStack {
@@ -92,7 +94,6 @@ struct FilterPageView: View {
                             filterSettings.classTypes = classTypes.filter { $0.isSelected }.map { $0.label }
                             filterSettings.ethnicities = ethnicities.filter { $0.isSelected }.map { $0.label }
                             filterSettings.genders = genders.filter { $0.isSelected }.map { $0.label }
-
                             dismiss()
                     }
                     .fontWeight(.bold)
