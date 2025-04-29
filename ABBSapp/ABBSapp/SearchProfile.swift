@@ -4,19 +4,21 @@
 //
 //  Created by Cecilia on 4/27/25.
 //
-
 import SwiftUI
 
 struct RandomProfileView: View {
     @State private var currentProfile: UserProfile = UserProfile.randomProfile()
     @Binding var likedProfiles: [UserProfile]
+
     @State private var isFilterPresented = false
     @State private var isProfilePresented = false
     @State private var isLikedProfilesPresented = false
 
+    @State private var filterSettings = FilterSettings()
+
     var body: some View {
         VStack(spacing: 16) {
-            // Top Bar: ABBS Logo + Filter + Liked Profiles Button
+            // Top Bar: ABBS Logo + Filter Button
             HStack {
                 Image("ABBSLogo")
                     .resizable()
@@ -30,7 +32,7 @@ struct RandomProfileView: View {
                         .foregroundColor(.black)
                         .font(.headline)
                 }
-                .padding(.trailing, 16)
+                .padding(.trailing, 24)
             }
             .padding(.top, -40)
             Spacer()
@@ -42,13 +44,13 @@ struct RandomProfileView: View {
                         Text(currentProfile.name)
                             .font(.title)
                             .fontWeight(.bold)
-                        
+
                         HStack(spacing: 4) {
                             Image(systemName: "house.fill")
                             Text("Lives in \(currentProfile.location)")
                                 .foregroundColor(.gray)
                         }
-                        
+
                         VStack(alignment: .leading, spacing: 20) {
                             Group {
                                 profileInfo(label: "Introduction", content: currentProfile.introduction)
@@ -75,7 +77,7 @@ struct RandomProfileView: View {
             // Like and Dislike Buttons
             HStack {
                 Button(action: {
-                    currentProfile = UserProfile.randomProfile()
+                    generateNewProfile()
                 }) {
                     Image(systemName: "xmark")
                         .font(.system(size: 30, weight: .bold))
@@ -91,7 +93,7 @@ struct RandomProfileView: View {
 
                 Button(action: {
                     likedProfiles.append(currentProfile)
-                    currentProfile = UserProfile.randomProfile()
+                    generateNewProfile()
                 }) {
                     Image(systemName: "heart.fill")
                         .font(.system(size: 30, weight: .bold))
@@ -105,18 +107,44 @@ struct RandomProfileView: View {
             }
             .padding(.horizontal, 40)
             .padding(.bottom, 8)
-
-            // Bottom Tab Bar
         }
         .fullScreenCover(isPresented: $isFilterPresented) {
-            FilterPageView()
+            FilterPageView(filterSettings: $filterSettings)
         }
-        .fullScreenCover(isPresented: $isProfilePresented) {
-            ProfileView(profile: .constant(UserProfile.randomProfile()), onEditProfile: {})
+    }
+
+    // MARK: - Helper Functions
+
+    private func generateNewProfile() {
+        var newProfile: UserProfile
+        repeat {
+            newProfile = UserProfile.randomProfile()
+        } while !matchesFilters(profile: newProfile)
+        currentProfile = newProfile
+    }
+
+    private func matchesFilters(profile: UserProfile) -> Bool {
+        if !filterSettings.meetingTimes.isEmpty &&
+            profile.preferredMeetingTimes.allSatisfy({ !filterSettings.meetingTimes.contains($0) }) {
+            return false
         }
-        .fullScreenCover(isPresented: $isLikedProfilesPresented) {
-            ListofMatches(likedProfiles: $likedProfiles)
+        if !filterSettings.grades.isEmpty &&
+            profile.grade.allSatisfy({ !filterSettings.grades.contains($0) }) {
+            return false
         }
+        if !filterSettings.classTypes.isEmpty &&
+            profile.typeOfClasses.allSatisfy({ !filterSettings.classTypes.contains($0) }) {
+            return false
+        }
+        if !filterSettings.ethnicities.isEmpty &&
+            profile.raceEthnicity.allSatisfy({ !filterSettings.ethnicities.contains($0) }) {
+            return false
+        }
+        if !filterSettings.genders.isEmpty &&
+            profile.gender.allSatisfy({ !filterSettings.genders.contains($0) }) {
+            return false
+        }
+        return true
     }
 
     @ViewBuilder
@@ -135,4 +163,3 @@ struct RandomProfileView: View {
         }
     }
 }
-

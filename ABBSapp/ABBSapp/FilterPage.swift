@@ -15,6 +15,7 @@ struct FilterOption: Identifiable {
 
 struct FilterPageView: View {
     @Environment(\.dismiss) var dismiss
+    @Binding var filterSettings: FilterSettings
     
     @State private var meetingTimes = [
         FilterOption(label: "Morning"),
@@ -86,8 +87,13 @@ struct FilterPageView: View {
 
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("SAVE") {
-                        print("Filters saved.")
-                        dismiss()
+                        filterSettings.meetingTimes = meetingTimes.filter { $0.isSelected }.map { $0.label }
+                            filterSettings.grades = grades.filter { $0.isSelected }.map { $0.label }
+                            filterSettings.classTypes = classTypes.filter { $0.isSelected }.map { $0.label }
+                            filterSettings.ethnicities = ethnicities.filter { $0.isSelected }.map { $0.label }
+                            filterSettings.genders = genders.filter { $0.isSelected }.map { $0.label }
+
+                            dismiss()
                     }
                     .fontWeight(.bold)
                 }
@@ -137,6 +143,6 @@ struct FilterSectionView: View {
 }
 
 
-#Preview {
-    FilterPageView()
-}
+//#Preview {
+ //   FilterPageView()
+//}

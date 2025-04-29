@@ -7,7 +7,8 @@
 import SwiftUI
 import Foundation
 
-struct UserProfile {
+struct UserProfile : Identifiable {
+    var id = UUID()
     var name: String
     var location: String
     var introduction: String
