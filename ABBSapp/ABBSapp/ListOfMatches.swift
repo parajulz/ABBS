@@ -5,8 +5,10 @@
 //  Created by Cecilia on 4/28/25.
 //
 import SwiftUI
+import SwiftData
 
 struct ListofMatches: View {
+    @Environment(\.modelContext) private var modelContext
     @Binding var likedProfiles: [UserProfile]
 
     var body: some View {
@@ -46,6 +48,10 @@ struct ListofMatches: View {
     }
     
     private func deleteProfile(at offsets: IndexSet) {
+        for index in offsets {
+            let profileToDelete = likedProfiles[index]
+            modelContext.delete(profileToDelete)
+        }
         likedProfiles.remove(atOffsets: offsets)
     }
 }

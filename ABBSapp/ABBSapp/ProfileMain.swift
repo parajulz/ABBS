@@ -22,7 +22,7 @@ struct ProfileView: View {
                     .padding(.leading, 16)
                 Spacer()
             }
-            .padding(.top, -40)
+            .padding(.top, -20)
 
             // MARK: - Profile Picture + Edit Button
             ZStack(alignment: .bottomLeading) {
@@ -60,7 +60,7 @@ struct ProfileView: View {
 
             // MARK: - Info Box
             ScrollView {
-                VStack(alignment: .leading, spacing: 60) {
+                VStack(alignment: .leading, spacing: 30) {
                     Text("Introduction:\n\(profile.introduction)")
                         .lineLimit(nil)
                         .fixedSize(horizontal: false, vertical: true)

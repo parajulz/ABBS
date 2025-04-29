@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct ABBSappApp: App {
@@ -13,5 +14,6 @@ struct ABBSappApp: App {
         WindowGroup {
             ContentView()
         }
+        .modelContainer(for: UserProfile.self)
     }
 }

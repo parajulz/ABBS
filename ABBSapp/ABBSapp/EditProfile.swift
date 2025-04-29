@@ -7,9 +7,11 @@
 
 import SwiftUI
 import PhotosUI
+import SwiftData
 
 struct EditProfile: View {
     @Environment(\.presentationMode) var presentationMode
+    @Environment(\.modelContext) private var modelContext
     @Binding var profile: UserProfile
 
     @State private var localProfile: UserProfile
@@ -54,6 +56,7 @@ struct EditProfile: View {
                         Spacer()
                         Button(action: {
                             profile = localProfile
+                            modelContext.insert(profile)
                             presentationMode.wrappedValue.dismiss()
                         }) {
                             Text("SAVE")

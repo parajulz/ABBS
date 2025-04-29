@@ -34,8 +34,8 @@ struct RandomProfileView: View {
                 }
                 .padding(.trailing, 24)
             }
-            .padding(.top, -40)
-            Spacer()
+            .padding(.top, -20)
+            //Spacer()
 
             // Profile Card
             ScrollView {

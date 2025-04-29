@@ -6,19 +6,47 @@
 //
 import SwiftUI
 import Foundation
+import SwiftData
 
-struct UserProfile : Identifiable {
-    var id = UUID()
-    var name: String
-    var location: String
-    var introduction: String
-    var preferredMeetingTimes: [String]
-    var grade: [String]
-    var typeOfClasses: [String]
-    var raceEthnicity: [String]
-    var gender: [String]
-    var instagram: String
-    var linkedin: String
+@Model
+class UserProfile : Identifiable {
+    var id: UUID
+        var name: String
+        var location: String
+        var introduction: String
+        var preferredMeetingTimes: [String]
+        var grade: [String]
+        var typeOfClasses: [String]
+        var raceEthnicity: [String]
+        var gender: [String]
+        var instagram: String
+        var linkedin: String
+
+        init(
+            id: UUID = UUID(),
+            name: String,
+            location: String,
+            introduction: String,
+            preferredMeetingTimes: [String],
+            grade: [String],
+            typeOfClasses: [String],
+            raceEthnicity: [String],
+            gender: [String],
+            instagram: String,
+            linkedin: String
+        ) {
+            self.id = id
+            self.name = name
+            self.location = location
+            self.introduction = introduction
+            self.preferredMeetingTimes = preferredMeetingTimes
+            self.grade = grade
+            self.typeOfClasses = typeOfClasses
+            self.raceEthnicity = raceEthnicity
+            self.gender = gender
+            self.instagram = instagram
+            self.linkedin = linkedin
+        }
     
     static func randomProfile() -> UserProfile {
         let names = [
