@@ -33,12 +33,15 @@ Matching algorithm is based on learning compatibility, not just course overlap.
 ---
 
 ## 🖼️ Screenshots / UI Demo
-<img width="295" alt="Screenshot 2025-07-06 at 6 14 10 PM" src="https://github.com/user-attachments/assets/48555e99-8d40-4671-9eb6-e5b97c1d349c" />
-<img width="293" alt="Screenshot 2025-07-06 at 6 14 52 PM" src="https://github.com/user-attachments/assets/8d81cbf9-5d9b-4617-adfc-cf2106ef21e9" />
-<img width="314" alt="Screenshot 2025-07-06 at 6 15 09 PM" src="https://github.com/user-attachments/assets/69f8761c-a179-4d92-bfca-7d5e95ee14e5" />
-<img width="322" alt="Screenshot 2025-07-06 at 6 15 23 PM" src="https://github.com/user-attachments/assets/23142c6f-ca98-46dc-8c1f-22ac6dd8726a" />
-<img width="294" alt="Screenshot 2025-07-06 at 6 15 30 PM" src="https://github.com/user-attachments/assets/c549f370-4641-4a4f-8ce5-d2a2a20e2d3a" />
-<img width="286" alt="Screenshot 2025-07-06 at 6 15 45 PM" src="https://github.com/user-attachments/assets/ec470fc6-19b0-448e-a402-7987127e2b36" />
+<img src="https://github.com/user-attachments/assets/48555e99-8d40-4671-9eb6-e5b97c1d349c" width="150" />
+<img src="https://github.com/user-attachments/assets/8d81cbf9-5d9b-4617-adfc-cf2106ef21e9" width="150" />
+<img src="https://github.com/user-attachments/assets/69f8761c-a179-4d92-bfca-7d5e95ee14e5" width="150" />
+<img src="https://github.com/user-attachments/assets/23142c6f-ca98-46dc-8c1f-22ac6dd8726a" width="150" />
+<img src="https://github.com/user-attachments/assets/c549f370-4641-4a4f-8ce5-d2a2a20e2d3a" width="150" />
+<img src="https://github.com/user-attachments/assets/ec470fc6-19b0-448e-a402-7987127e2b36" width="150" />
+
+
+https://github.com/user-attachments/assets/9ed3b3f5-4691-4b37-bfb9-227c1ca451df
 
 
 
